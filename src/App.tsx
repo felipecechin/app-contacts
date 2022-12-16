@@ -1,9 +1,5 @@
-function App() {
-    return (
-        <div className='App'>
-            <h1 className='text-3xl font-bold underline'>Hello world!</h1>
-        </div>
-    )
-}
+import Header from './components/Header'
 
-export default App
+export default function App() {
+    return <Header />
+}
