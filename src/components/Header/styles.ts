@@ -1,16 +1,29 @@
-import tw, { css, styled } from 'twin.macro'
+import tw, { styled } from 'twin.macro'
 
 export const Container = styled.header`
     ${tw`w-full 
     bg-gradient-to-r 
     from-cyan-700 
-    to-cyan-600 
+    to-cyan-400 
     px-4 py-4`}
 
-    > h1 {
-        ${tw`text-3xl text-white underline`}
-        ${css`
-            background-color: #000;
-        `}
+    > div {
+        ${tw`max-w-4xl flex flex-col mx-auto pb-32`}
+
+        > div {
+            ${tw`rounded-lg bg-white flex items-center justify-between px-4 py-4`}
+
+            > span {
+                ${tw`flex items-center normal-case text-xl font-bold text-cyan-800`}
+
+                > svg {
+                    ${tw`h-6 w-6 mr-1 self-center flex-shrink-0`}
+                }
+            }
+        }
+
+        > h1 {
+            ${tw`mt-12 text-3xl font-bold text-white flex items-center`}
+        }
     }
 `
