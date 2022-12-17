@@ -17,7 +17,7 @@ export const Container = styled.header`
                 ${tw`flex items-center normal-case font-bold text-xl text-green-800`}
 
                 > svg {
-                    ${tw`h-4 w-4 mr-1 mb-1 flex-shrink-0 self-end`}
+                    ${tw`h-5 w-5 mr-1 mb-1 flex-shrink-0 self-end`}
                 }
             }
         }
