@@ -1,5 +1,5 @@
 import { Container } from './styles'
-import { FaUserCircle } from 'react-icons/fa'
+import { FaUsers } from 'react-icons/fa'
 
 export default function Header() {
     return (
@@ -7,7 +7,7 @@ export default function Header() {
             <div>
                 <div>
                     <span>
-                        <FaUserCircle />
+                        <FaUsers />
                         App Contacts
                     </span>
                 </div>
