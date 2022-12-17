@@ -1,4 +1,4 @@
-import tw, { styled } from 'twin.macro'
+import tw, { css, styled } from 'twin.macro'
 
 export const Container = styled.header`
     ${tw`w-full 
@@ -14,10 +14,10 @@ export const Container = styled.header`
             ${tw`rounded-lg bg-white flex items-center justify-between px-4 py-4`}
 
             > span {
-                ${tw`flex items-center normal-case text-xl font-bold text-cyan-800`}
+                ${tw`flex items-center normal-case font-bold text-xl text-cyan-800`}
 
                 > svg {
-                    ${tw`h-6 w-6 mr-1 self-center flex-shrink-0`}
+                    ${tw`h-4 w-4 mr-1 mb-1 flex-shrink-0 self-end`}
                 }
             }
         }
