@@ -33,10 +33,6 @@
         "@typescript-eslint/naming-convention": [
             "warn",
             {
-                "selector": "variable",
-                "format": ["camelCase"]
-            },
-            {
                 "selector": "interface",
                 "format": ["PascalCase"]
             },
