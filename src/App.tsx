@@ -1,69 +1,100 @@
-import { useCallback, useMemo } from 'react'
+import { Fragment, useCallback, useMemo, useState } from 'react'
 
-import { FaSearch } from 'react-icons/fa'
-import Header from './components/Header'
-import MainContent from './components/MainContent'
-import Turnstone from 'turnstone'
+import ContactItem from './components/ContactItem'
+import ContactsSearch from './components/ContactsSearch'
+import Header from './components/shared/template/Header'
+import MainContent from './components/shared/template/MainContent'
 
-const styles = {
-    container: 'w-full sm:max-w-sm',
-    input: 'w-full h-12 border border-cyan-600 pl-2 pr-8 text-md outline-none rounded',
-    inputFocus: 'w-full h-12 pl-2 pr-8 text-md outline-none ring-2 ring-cyan-600 rounded border-none',
-    query: 'text-cyan-800 placeholder-cyan-800',
-    typeahead: 'text-crystal-500 border-white',
-    cancelButton:
-        'absolute w-10 h-12 inset-y-0 left-0 items-center justify-center z-10 text-crystal-600 inline-flex sm:hidden',
-    clearButton:
-        'absolute inset-y-0 right-0 w-8 inline-flex items-center justify-center text-crystal-500 hover:text-hotpink-300',
-    listbox: 'w-full bg-white sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl',
-    groupHeading: 'cursor-default mt-2 mb-0.5 px-1.5 uppercase text-sm text-hotpink-300',
-    item: 'cursor-pointer p-1.5 text-lg overflow-ellipsis overflow-hidden text-cyan-700',
-    highlightedItem:
-        'cursor-pointer p-1.5 text-lg overflow-ellipsis overflow-hidden text-cyan-700 rounded hover:bg-cyan-700 hover:text-white',
-    match: 'font-semibold',
-    noItems: 'cursor-default text-center my-20',
-}
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
 export default function App() {
-    const contacts = [
-        {
-            id: '1',
-            name: 'Jane Cooper',
-            email: 'jane.cooper@example.com',
-        },
-        {
-            id: '2',
-            name: 'Tom Cook',
-            email: 'tomcook@example.com',
-        },
-        {
-            id: '3',
-            name: 'Felipe',
-            email: 'tomcook@example.com',
-        },
-        {
-            id: '4',
-            name: 'Adevaldo',
-            email: 'tomcook@example.com',
-        },
-        {
-            id: '5',
-            name: 'Adolmir',
-            email: 'tomcook@example.com',
-        },
-    ]
-    const searchedContacts = useCallback((query: string) => {
-        return contacts.filter((contact) => {
-            return contact.name.toLowerCase().includes(query.toLowerCase())
-        })
+    const contacts = useMemo(() => {
+        return [
+            {
+                name: 'aaa',
+                addresses: [
+                    {
+                        zip: '97050010',
+                        state: 'RS',
+                        city: 'Santa Maria',
+                        street: 'Avenida Centro',
+                        district: 'Centro',
+                        complement: '',
+                        number: 222,
+                    },
+                ],
+                phones: [
+                    {
+                        number: '555555555',
+                        type: 'cell',
+                    },
+                ],
+                id: 2,
+            },
+            {
+                name: 'felipe',
+                addresses: [
+                    {
+                        zip: '97050010',
+                        state: 'RS',
+                        city: 'Santa Maria',
+                        street: 'Avenida Centro',
+                        district: 'Centro',
+                        complement: '',
+                        number: 222,
+                    },
+                ],
+                phones: [
+                    {
+                        number: '555555555',
+                        type: 'cell',
+                    },
+                ],
+                id: 3,
+            },
+        ]
     }, [])
 
-    const listbox = useMemo(() => {
-        return {
-            displayField: 'name',
-            data: searchedContacts,
-        }
-    }, [])
+    const [filteredContacts, setFilteredContacts] = useState(contacts)
+
+    const handleSearchContacts = useCallback(
+        (query: string) => {
+            const filteredContacts = contacts.filter((contact) => {
+                return contact.name.toLowerCase().includes(query.toLowerCase())
+            })
+            setFilteredContacts(filteredContacts)
+        },
+        [contacts]
+    )
+
+    const showContactsByInitialCharacter = useCallback(
+        (letter: string) => {
+            const filteredContactsByInitialCharacter = filteredContacts.filter((contact) => {
+                return contact.name.toLowerCase().startsWith(letter.toLowerCase())
+            })
+            if (filteredContactsByInitialCharacter.length === 0) return null
+            return (
+                <div className='flex flex-col sm:flex-row'>
+                    <span>
+                        <p className='bg-gray-300 font-bold text-lg text-black rounded p-3 inline-block w-10 text-center'>
+                            {letter.toUpperCase()}
+                        </p>
+                    </span>
+                    <ul className='flex-grow sm:ml-2 space-y-1 max-h-64 overflow-auto mt-2 sm:mt-0'>
+                        {filteredContactsByInitialCharacter.map((contact) => {
+                            return (
+                                <ContactItem
+                                    key={contact.id}
+                                    contact={contact}
+                                />
+                            )
+                        })}
+                    </ul>
+                </div>
+            )
+        },
+        [filteredContacts]
+    )
 
     return (
         <>
@@ -71,21 +102,20 @@ export default function App() {
             <MainContent>
                 <div className='flex flex-col'>
                     <div className='bg-white rounded-lg shadow-lg px-4 py-4 flex justify-center'>
-                        <Turnstone
-                            id='autocomplete'
-                            listbox={listbox}
-                            clearButton={true}
-                            matchText={true}
-                            placeholder='Procure...'
-                            styles={styles}
-                            typeahead={false}
-                            maxItems={5}
+                        <ContactsSearch
+                            contacts={contacts}
+                            onSearchContacts={handleSearchContacts}
                         />
-                        <button className='bg-cyan-800 px-4 rounded text-white ml-2 focus:outline-none focus:ring-2 focus:ring-cyan-600'>
-                            <FaSearch />
-                        </button>
                     </div>
-                    <div className='bg-white rounded-lg shadow-lg px-4 py-4 flex justify-center mt-6'></div>
+                    <div className='bg-white rounded-lg shadow-lg px-4 py-4 flex flex-col justify-center mt-6 space-y-4'>
+                        {filteredContacts.length === 0 && (
+                            <p className='text-center text-lg text-cyan-700'>Nenhum contato encontrado</p>
+                        )}
+                        {filteredContacts.length > 0 &&
+                            alphabet.map((letter) => {
+                                return <Fragment key={letter}>{showContactsByInitialCharacter(letter)}</Fragment>
+                            })}
+                    </div>
                 </div>
             </MainContent>
         </>
