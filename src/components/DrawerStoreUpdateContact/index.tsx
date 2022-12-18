@@ -402,7 +402,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
                                         </button>
                                     </span>
                                 )}
-                                <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                                <div className='flex-grow grid grid-cols-1 sm:grid-cols-2 gap-2'>
                                     <div>
                                         <ControlledReactSelect
                                             control={control}
