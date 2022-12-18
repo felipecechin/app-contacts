@@ -4,18 +4,21 @@ import AddContactButton from '@/components/AddContactButton'
 import { Contact } from '@/types/contact'
 import ContactItem from '@/components/ContactItem'
 import ContactsSearch from '@/components/ContactsSearch'
-import DrawerStoreContact from '@/components/DrawerStoreContact'
+import DrawerStoreUpdateContact from '@/components/DrawerStoreUpdateContact'
 import Header from '@/components/shared/template/Header'
 import MainContent from '@/components/shared/template/MainContent'
+import lodashOrderBy from 'lodash/orderBy'
+import { reactSwal } from '@/utils/reactSwal'
+import { sweetAlertOptions } from './utils/sweetAlertOptions'
 import { useContacts } from '@/contexts/useContacts'
 
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
+const alphabet = '#abcdefghijklmnopqrstuvwxyz'.split('')
 
 export default function App() {
-    const { contacts } = useContacts()
+    const { contacts, deleteContact } = useContacts()
     const [showFormContactDrawer, setShowFormContactDrawer] = useState<{
         open: boolean
-        contactToUpdate?: Contact | null
+        contactToUpdate: Contact | null
     }>({
         open: false,
         contactToUpdate: null,
@@ -37,11 +40,59 @@ export default function App() {
         [contacts]
     )
 
+    const handleAddContact = useCallback(() => {
+        setShowFormContactDrawer({
+            open: true,
+            contactToUpdate: null,
+        })
+    }, [])
+
+    const handleEditContact = useCallback(
+        (contact: Contact) => {
+            setShowFormContactDrawer({
+                open: true,
+                contactToUpdate: contact,
+            })
+        },
+        [setShowFormContactDrawer]
+    )
+
+    const handleDeleteContact = useCallback(
+        async (contact: Contact) => {
+            reactSwal
+                .fire({
+                    title: 'Tem certeza que deseja remover o contato?',
+                    cancelButtonColor: sweetAlertOptions.cancelButtonColor,
+                    cancelButtonText: 'Cancelar!',
+                    confirmButtonColor: sweetAlertOptions.confirmButtonColor,
+                    confirmButtonText: 'Sim, remover!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    text: 'Esta ação não pode ser revertida',
+                })
+                .then(async (result) => {
+                    if (result.isConfirmed) {
+                        deleteContact(contact.id)
+                    }
+                })
+        },
+        [deleteContact]
+    )
+
     const showContactsByInitialCharacter = useCallback(
         (letter: string) => {
-            const filteredContactsByInitialCharacter = filteredContacts.filter((contact) => {
-                return contact.name.toLowerCase().startsWith(letter.toLowerCase())
-            })
+            let filteredContactsByInitialCharacter: Contact[] = []
+            if (letter === '#') {
+                filteredContactsByInitialCharacter = filteredContacts.filter((contact) => {
+                    const firstLetter = contact.name[0].toLowerCase()
+                    return !alphabet.includes(firstLetter)
+                })
+            } else {
+                filteredContactsByInitialCharacter = filteredContacts.filter((contact) => {
+                    return contact.name.toLowerCase().startsWith(letter.toLowerCase())
+                })
+            }
+            filteredContactsByInitialCharacter = lodashOrderBy(filteredContactsByInitialCharacter, ['name'], ['asc'])
             if (filteredContactsByInitialCharacter.length === 0) return null
             return (
                 <div className='flex flex-col sm:flex-row'>
@@ -56,12 +107,8 @@ export default function App() {
                                 <ContactItem
                                     key={contact.id}
                                     contact={contact}
-                                    onEditContact={() =>
-                                        setShowFormContactDrawer({
-                                            open: true,
-                                            contactToUpdate: contact,
-                                        })
-                                    }
+                                    onEditContact={handleEditContact}
+                                    onDeleteContact={handleDeleteContact}
                                 />
                             )
                         })}
@@ -69,7 +116,7 @@ export default function App() {
                 </div>
             )
         },
-        [filteredContacts]
+        [filteredContacts, handleEditContact, handleDeleteContact]
     )
 
     return (
@@ -82,18 +129,11 @@ export default function App() {
                             contacts={contacts}
                             onSearchContacts={handleSearchContacts}
                         />
-                        <AddContactButton
-                            onClick={() =>
-                                setShowFormContactDrawer({
-                                    open: true,
-                                    contactToUpdate: null,
-                                })
-                            }
-                        />
+                        <AddContactButton onClick={handleAddContact} />
                     </div>
                     <div className='bg-white rounded-lg shadow-lg px-4 py-4 flex flex-col justify-center mt-6 space-y-4'>
                         {filteredContacts.length === 0 && (
-                            <p className='text-center text-lg text-cyan-700 italic'>Nenhum contato encontrado</p>
+                            <p className='text-center text-lg text-green-700 italic'>Nenhum contato encontrado</p>
                         )}
                         {filteredContacts.length > 0 &&
                             alphabet.map((letter) => {
@@ -101,9 +141,10 @@ export default function App() {
                             })}
                     </div>
                 </div>
-                <DrawerStoreContact
+                <DrawerStoreUpdateContact
                     open={showFormContactDrawer.open}
                     onClose={() => setShowFormContactDrawer({ ...showFormContactDrawer, open: false })}
+                    contactToUpdate={showFormContactDrawer.contactToUpdate}
                 />
             </MainContent>
         </>
