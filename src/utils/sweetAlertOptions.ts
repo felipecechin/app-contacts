@@ -1,4 +1,4 @@
 export const sweetAlertOptions = {
-    confirmButtonColor: '#0e7490',
+    confirmButtonColor: '#15803D',
     cancelButtonColor: '#d33',
 }
