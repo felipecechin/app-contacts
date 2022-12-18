@@ -1,11 +1,11 @@
-import { Message } from './styles'
+import { Container } from './styles'
 
 interface IMessageErrorProps {
     message: string
 }
 
 function MessageError({ message }: IMessageErrorProps): JSX.Element {
-    return <Message>{message}</Message>
+    return <Container>{message}</Container>
 }
 
 export default MessageError
