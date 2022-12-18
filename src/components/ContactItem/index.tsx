@@ -5,15 +5,19 @@ import { Contact } from '@/types/contact'
 
 interface IContactItemProps {
     contact: Contact
+    onEditContact: () => void
 }
 
-export default function ContactItem({ contact }: IContactItemProps) {
+export default function ContactItem({ contact, onEditContact }: IContactItemProps) {
     return (
         <Container>
             <FaUserCircle />
             <p>{contact.name}</p>
             <span>
-                <EditButton type='button'>
+                <EditButton
+                    onClick={onEditContact}
+                    type='button'
+                >
                     <FaPencilAlt />
                 </EditButton>
                 <DeleteButton type='button'>
