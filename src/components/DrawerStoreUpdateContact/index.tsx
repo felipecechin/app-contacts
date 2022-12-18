@@ -22,6 +22,7 @@ import { yupMessages } from '@/utils/yupMessages'
 interface IDrawerStoreContactProps {
     open: boolean
     onClose: () => void
+    contactToUpdate: Contact | null
 }
 
 interface IViaCepResponse {
@@ -33,8 +34,8 @@ interface IViaCepResponse {
     complemento: string
 }
 
-export default function DrawerStoreContact({ open, onClose }: IDrawerStoreContactProps) {
-    const { storeContact } = useContacts()
+export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdate }: IDrawerStoreContactProps) {
+    const { storeContact, updateContact } = useContacts()
 
     const addressSchema = useMemo(() => {
         return yup.object({
@@ -89,11 +90,19 @@ export default function DrawerStoreContact({ open, onClose }: IDrawerStoreContac
 
     const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof storeContactSchema>>>(
         (data) => {
-            const contact = data as Contact
-            storeContact(contact)
+            if (!lodashIsEmpty(contactToUpdate)) {
+                const contact = {
+                    ...data,
+                    id: contactToUpdate.id,
+                } as Contact
+                updateContact(contact)
+            } else {
+                const contact = data as Omit<Contact, 'id'>
+                storeContact(contact)
+            }
             onClose()
         },
-        [storeContact, onClose]
+        [storeContact, onClose, contactToUpdate, updateContact]
     )
 
     const {
@@ -109,30 +118,38 @@ export default function DrawerStoreContact({ open, onClose }: IDrawerStoreContac
 
     useEffect(() => {
         if (open) {
-            reset({
-                addresses: [
-                    {
-                        zip: '',
-                        state: '',
-                        city: '',
-                        street: '',
-                        district: '',
-                        complement: '',
-                        number: 0,
-                    },
-                ],
-                phones: [
-                    {
-                        number: '',
-                        model: 'cell',
-                    },
-                ],
-            })
+            if (!lodashIsEmpty(contactToUpdate)) {
+                reset({
+                    name: contactToUpdate.name,
+                    addresses: contactToUpdate.addresses,
+                    phones: contactToUpdate.phones,
+                })
+            } else {
+                reset({
+                    addresses: [
+                        {
+                            zip: '',
+                            state: '',
+                            city: '',
+                            street: '',
+                            district: '',
+                            complement: '',
+                            number: 0,
+                        },
+                    ],
+                    phones: [
+                        {
+                            number: '',
+                            model: 'cell',
+                        },
+                    ],
+                })
+            }
         }
-    }, [open, reset])
+    }, [open, reset, contactToUpdate])
 
     useEffect(() => {
-        if (!lodashIsEmpty(errors)) {
+        if (open && !lodashIsEmpty(errors)) {
             reactSwal.fire({
                 icon: 'error',
                 title: 'Ops!',
@@ -140,7 +157,7 @@ export default function DrawerStoreContact({ open, onClose }: IDrawerStoreContac
                 confirmButtonColor: sweetAlertOptions.confirmButtonColor,
             })
         }
-    }, [errors])
+    }, [errors, open])
 
     const {
         fields: addressesFields,
@@ -228,11 +245,18 @@ export default function DrawerStoreContact({ open, onClose }: IDrawerStoreContac
         [clearErrors, setValue, getCitiesByState]
     )
 
+    const drawerTitle = useMemo(() => {
+        if (!lodashIsEmpty(contactToUpdate)) {
+            return 'Edição de contato'
+        }
+        return 'Cadastro de contato'
+    }, [contactToUpdate])
+
     return (
         <Drawer
             open={open}
             onClose={onClose}
-            title='Cadastro de contato'
+            title={drawerTitle}
         >
             <form
                 className='flex h-full flex-col divide-y divide-gray-200 bg-white border-t-2'
