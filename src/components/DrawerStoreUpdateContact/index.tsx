@@ -252,10 +252,15 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
         return 'Cadastro de contato'
     }, [contactToUpdate])
 
+    const handleCloseDrawer = useCallback(() => {
+        clearErrors()
+        onClose()
+    }, [clearErrors, onClose])
+
     return (
         <Drawer
             open={open}
-            onClose={onClose}
+            onClose={handleCloseDrawer}
             title={drawerTitle}
         >
             <form
