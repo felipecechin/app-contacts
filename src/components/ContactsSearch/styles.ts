@@ -20,5 +20,5 @@ export const turnstoneStyles = {
 }
 
 export const SearchButton = styled.button`
-    ${tw`bg-green-800 px-4 rounded text-white ml-2 focus:outline-none focus:ring-2 focus:ring-green-600`}
+    ${tw`bg-green-800 p-4 rounded text-white ml-2 focus:outline-none focus:ring-2 focus:ring-green-600`}
 `
