@@ -1,5 +1,5 @@
 import FetchError from './FetchError'
-import env from '../env'
+import env from '@/env'
 
 interface IFetcherArgs {
     method: string
