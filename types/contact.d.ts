@@ -12,6 +12,6 @@ export interface Contact {
     }[]
     phones: {
         number: string
-        type: string
+        model: string
     }[]
 }
