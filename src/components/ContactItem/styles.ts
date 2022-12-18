@@ -3,8 +3,12 @@ import tw, { styled } from 'twin.macro'
 export const Container = styled.li`
     ${tw`flex items-center bg-white shadow rounded p-2 text-base sm:text-lg text-green-800`}
 
+    > svg {
+        ${tw`flex-shrink-0`}
+    }
+
     > p {
-        ${tw`flex-grow ml-2 font-semibold`}
+        ${tw`flex-grow ml-2 font-semibold mr-2`}
     }
 
     > span {

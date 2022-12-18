@@ -31,7 +31,7 @@ export default function ContactsSearch({ contacts, onSearchContacts }: IContacts
     }, [searchedContacts])
 
     return (
-        <>
+        <span className='flex items-center'>
             <Turnstone
                 id='autocomplete'
                 listbox={listbox}
@@ -46,6 +46,6 @@ export default function ContactsSearch({ contacts, onSearchContacts }: IContacts
             <SearchButton onClick={() => onSearchContacts(query)}>
                 <FaSearch />
             </SearchButton>
-        </>
+        </span>
     )
 }
