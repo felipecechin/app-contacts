@@ -17,7 +17,7 @@ export const Container = styled.div`
 
 export const dialogStyles = 'relative z-10'
 
-export const dialogPanelStyles = 'pointer-events-auto relative w-screen max-w-md'
+export const dialogPanelStyles = 'pointer-events-auto relative w-screen max-w-lg'
 export const dialogTitleStyles = 'text-lg font-medium text-gray-900'
 
 export const Content = styled.div`
