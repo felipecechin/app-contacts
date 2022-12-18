@@ -9,7 +9,7 @@ export const turnstoneStyles = {
     cancelButton:
         'absolute w-10 h-12 inset-y-0 left-0 items-center justify-center z-10 text-green-700 inline-flex sm:hidden',
     clearButton:
-        'absolute inset-y-0 right-0 w-8 inline-flex items-center justify-center text-white bg-green-700 hover:text-green-300',
+        'absolute inset-y-0 right-0 rounded-r w-8 inline-flex items-center justify-center text-white bg-green-700 hover:text-green-300',
     listbox: 'w-full bg-white sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl',
     groupHeading: 'cursor-default mt-2 mb-0.5 px-1.5 uppercase text-sm text-hotpink-300',
     item: 'cursor-pointer p-1.5 text-lg overflow-ellipsis overflow-hidden text-green-700',
