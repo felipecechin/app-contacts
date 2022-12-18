@@ -1,109 +1,122 @@
 {
-    "contacts": [
+  "contacts": [
+    {
+      "phones": [
         {
-            "name": "felipe",
-            "addresses": [
-                {
-                    "zip": "97050010",
-                    "state": "RS",
-                    "city": "Santa Maria",
-                    "street": "Avenida Centro",
-                    "district": "Centro",
-                    "complement": "",
-                    "number": 222
-                }
-            ],
-            "phones": [
-                {
-                    "number": "555555555",
-                    "type": "cell"
-                }
-            ],
-            "id": 2
-        },
-        {
-            "name": "felipe",
-            "addresses": [
-                {
-                    "zip": "97050010",
-                    "state": "RS",
-                    "city": "Santa Maria",
-                    "street": "Avenida Centro",
-                    "district": "Centro",
-                    "complement": "",
-                    "number": 222
-                }
-            ],
-            "phones": [
-                {
-                    "number": "555555555",
-                    "type": "cell"
-                }
-            ],
-            "id": 3
-        },
-        {
-            "name": "felipe",
-            "addresses": [
-                {
-                    "zip": "97050010",
-                    "state": "RS",
-                    "city": "Santa Maria",
-                    "street": "Avenida Centro",
-                    "district": "Centro",
-                    "complement": "",
-                    "number": 222
-                }
-            ],
-            "phones": [
-                {
-                    "number": "555555555",
-                    "type": "cell"
-                }
-            ],
-            "id": 4
-        },
-        {
-            "name": "felipe",
-            "addresses": [
-                {
-                    "zip": "97050010",
-                    "state": "RS",
-                    "city": "Santa Maria",
-                    "street": "Avenida Centro",
-                    "district": "Centro",
-                    "complement": "",
-                    "number": 222
-                }
-            ],
-            "phones": [
-                {
-                    "number": "555555555",
-                    "type": "home"
-                }
-            ],
-            "id": 5
-        },
-        {
-            "name": "felipe",
-            "addresses": [
-                {
-                    "zip": "97050010",
-                    "state": "RS",
-                    "city": "Santa Maria",
-                    "street": "Avenida Centro",
-                    "district": "Centro",
-                    "complement": "",
-                    "number": 222
-                }
-            ],
-            "phones": [
-                {
-                    "number": "555555555",
-                    "type": "home"
-                }
-            ],
-            "id": 6
+          "number": "98498494",
+          "model": "cell"
         }
-    ]
+      ],
+      "addresses": [
+        {
+          "district": "Nossa Senhora das Dores",
+          "street": "Avenida Nossa Senhora das Dores",
+          "state": "RS",
+          "number": 50,
+          "complement": "lado par",
+          "city": "Santa Maria",
+          "zip": "97050530"
+        }
+      ],
+      "name": "felipe aa",
+      "id": 1
+    },
+    {
+      "phones": [
+        {
+          "number": "49849841",
+          "model": "cell"
+        }
+      ],
+      "addresses": [
+        {
+          "district": "Nossa Senhora das Dores",
+          "street": "Avenida Nossa Senhora das Dores",
+          "state": "RS",
+          "number": 43,
+          "complement": "lado par",
+          "city": "Santa Maria",
+          "zip": "97050530"
+        }
+      ],
+      "name": "sarah",
+      "id": 2
+    },
+    {
+      "name": "feaa",
+      "addresses": [
+        {
+          "district": "Nossa Senhora das Dores",
+          "street": "Avenida Nossa Senhora das Dores",
+          "state": "RS",
+          "number": 50,
+          "complement": "",
+          "city": "Santa Maria",
+          "zip": "97050530"
+        }
+      ],
+      "phones": [
+        {
+          "number": "84984984",
+          "model": "cell"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "123aaa",
+      "addresses": [
+        {
+          "district": "Nossa Senhora das Dores",
+          "street": "Avenida Nossa Senhora das Dores",
+          "state": "RS",
+          "number": 34,
+          "complement": "lado par",
+          "city": "Santa Maria",
+          "zip": "97050530"
+        }
+      ],
+      "phones": [
+        {
+          "number": "42423244",
+          "model": "cell"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "name": "áfeafae",
+      "addresses": [
+        {
+          "district": "Nossa Senhora das Dores",
+          "street": "Avenida Nossa Senhora das Dores",
+          "state": "RS",
+          "number": 30,
+          "complement": "lado par",
+          "city": "Santa Maria",
+          "zip": "97050530"
+        },
+        {
+          "district": "Nossa Senhora das Dores",
+          "street": "Avenida Nossa Senhora das Dores",
+          "state": "RS",
+          "number": 30,
+          "complement": "lado par",
+          "city": "Santa Maria",
+          "zip": "97050530"
+        }
+      ],
+      "phones": [
+        {
+          "number": "49849842",
+          "model": "cell"
+        },
+        {
+          "model": "cell",
+          "number": "55758758"
+        }
+      ],
+      "id": 5
+    }
+  ]
 }
