@@ -5,7 +5,6 @@ interface IFetcherArgs {
     method: string
     url: string
     data?: object
-    contentType?: string
 }
 
 const fetcher = async (args: IFetcherArgs): Promise<any> => {
