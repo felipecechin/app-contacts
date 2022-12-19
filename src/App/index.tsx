@@ -1,3 +1,4 @@
+import { ContactsByLetterBlock, Container, MessageContactsNotFound, ResultsContent, SearchContent } from './styles'
 import { Fragment, useCallback, useEffect, useState } from 'react'
 
 import AddContactButton from '@/components/AddContactButton'
@@ -9,10 +10,10 @@ import Header from '@/components/shared/template/Header'
 import MainContent from '@/components/shared/template/MainContent'
 import lodashOrderBy from 'lodash/orderBy'
 import { reactSwal } from '@/utils/reactSwal'
-import { sweetAlertOptions } from './utils/sweetAlertOptions'
+import { sweetAlertOptions } from '@/utils/sweetAlertOptions'
 import { useContacts } from '@/contexts/useContacts'
 
-const alphabet = '#abcdefghijklmnopqrstuvwxyz'.split('')
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
 export default function App() {
     const { contacts, deleteContact } = useContacts()
@@ -95,13 +96,11 @@ export default function App() {
             filteredContactsByInitialCharacter = lodashOrderBy(filteredContactsByInitialCharacter, ['name'], ['asc'])
             if (filteredContactsByInitialCharacter.length === 0) return null
             return (
-                <div className='flex flex-col sm:flex-row'>
+                <ContactsByLetterBlock>
                     <span>
-                        <p className='bg-gray-300 font-bold text-lg text-black rounded p-3 inline-block w-10 text-center'>
-                            {letter.toUpperCase()}
-                        </p>
+                        <p>{letter.toUpperCase()}</p>
                     </span>
-                    <ul className='flex-grow sm:ml-2 pb-2 space-y-1 max-h-64 overflow-auto mt-2 sm:mt-0'>
+                    <ul>
                         {filteredContactsByInitialCharacter.map((contact) => {
                             return (
                                 <ContactItem
@@ -113,7 +112,7 @@ export default function App() {
                             )
                         })}
                     </ul>
-                </div>
+                </ContactsByLetterBlock>
             )
         },
         [filteredContacts, handleEditContact, handleDeleteContact]
@@ -123,24 +122,28 @@ export default function App() {
         <>
             <Header />
             <MainContent>
-                <div className='flex flex-col'>
-                    <div className='bg-white rounded-lg shadow-lg px-4 py-4 flex flex-col-reverse sm:flex-row justify-between'>
+                <Container>
+                    <SearchContent>
                         <ContactsSearch
                             contacts={contacts}
                             onSearchContacts={handleSearchContacts}
                         />
                         <AddContactButton onClick={handleAddContact} />
-                    </div>
-                    <div className='bg-white rounded-lg shadow-lg px-4 py-4 flex flex-col justify-center mt-6 space-y-4'>
+                    </SearchContent>
+                    <ResultsContent>
                         {filteredContacts.length === 0 && (
-                            <p className='text-center text-lg text-green-700 italic'>Nenhum contato encontrado</p>
+                            <MessageContactsNotFound>Nenhum contato encontrado</MessageContactsNotFound>
                         )}
-                        {filteredContacts.length > 0 &&
-                            alphabet.map((letter) => {
-                                return <Fragment key={letter}>{showContactsByInitialCharacter(letter)}</Fragment>
-                            })}
-                    </div>
-                </div>
+                        {filteredContacts.length > 0 && (
+                            <>
+                                {showContactsByInitialCharacter('#')}
+                                {alphabet.map((letter) => {
+                                    return <Fragment key={letter}>{showContactsByInitialCharacter(letter)}</Fragment>
+                                })}
+                            </>
+                        )}
+                    </ResultsContent>
+                </Container>
                 <DrawerStoreUpdateContact
                     open={showFormContactDrawer.open}
                     onClose={() => setShowFormContactDrawer({ ...showFormContactDrawer, open: false })}
