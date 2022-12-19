@@ -9,9 +9,9 @@ import {
     dialogTitleStyles,
 } from './styles'
 import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useRef } from 'react'
 
 import { FaRegWindowClose } from 'react-icons/fa'
-import { Fragment } from 'react'
 
 interface IDrawerProps {
     open: boolean
@@ -21,6 +21,8 @@ interface IDrawerProps {
 }
 
 export default function Drawer({ open, onClose, title, children }: IDrawerProps): JSX.Element {
+    const divFocusRef = useRef<HTMLDivElement>(null)
+
     return (
         <Transition.Root
             as={Fragment}
@@ -29,6 +31,7 @@ export default function Drawer({ open, onClose, title, children }: IDrawerProps)
             <Dialog
                 as='div'
                 onClose={onClose}
+                initialFocus={divFocusRef}
                 className={dialogStyles}
             >
                 <Transition.Child
@@ -68,7 +71,7 @@ export default function Drawer({ open, onClose, title, children }: IDrawerProps)
                                         </ContentTitle>
                                         <ContentBody>
                                             <div>
-                                                <div>{children}</div>
+                                                <div ref={divFocusRef}>{children}</div>
                                             </div>
                                         </ContentBody>
                                     </Content>
