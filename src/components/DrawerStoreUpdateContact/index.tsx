@@ -1,5 +1,14 @@
 import * as yup from 'yup'
 
+import {
+    AddressFieldsContent,
+    ButtonContent,
+    FieldsGridContent,
+    FieldsGridContentFlexGrow,
+    Form,
+    FormBlockContent,
+    FormContent,
+} from './styles'
 import { FaPlus, FaSave, FaTrashAlt } from 'react-icons/fa'
 import { SubmitHandler, useFieldArray } from 'react-hook-form'
 import { useCallback, useEffect, useMemo } from 'react'
@@ -80,7 +89,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
         })
     }, [])
 
-    const storeContactSchema = useMemo(() => {
+    const formContactSchema = useMemo(() => {
         return yup.object({
             name: yup.string().required(yupMessages.required),
             addresses: yup.array().of(addressSchema),
@@ -88,7 +97,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
         })
     }, [addressSchema, phoneSchema])
 
-    const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof storeContactSchema>>>(
+    const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof formContactSchema>>>(
         (data) => {
             if (!lodashIsEmpty(contactToUpdate)) {
                 const contact = {
@@ -114,7 +123,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
         clearErrors,
         getValues,
         reset,
-    } = useFormWithSchema(storeContactSchema)
+    } = useFormWithSchema(formContactSchema)
 
     useEffect(() => {
         if (open) {
@@ -160,18 +169,18 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
     }, [errors, open])
 
     const {
-        fields: addressesFields,
-        append: addressesAppend,
-        remove: addressesRemove,
+        fields: fieldsAddresses,
+        append: appendAddresses,
+        remove: removeAddresses,
     } = useFieldArray({
         control,
         name: 'addresses',
     })
 
     const {
-        fields: phonesFields,
-        append: phonesAppend,
-        remove: phonesRemove,
+        fields: fieldsPhones,
+        append: appendPhones,
+        remove: removePhones,
     } = useFieldArray({
         control,
         name: 'phones',
@@ -186,7 +195,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
     )
 
     const handleAddNewAddress = useCallback(() => {
-        addressesAppend({
+        appendAddresses({
             zip: '',
             state: '',
             city: '',
@@ -195,14 +204,14 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
             complement: '',
             number: 0,
         })
-    }, [addressesAppend])
+    }, [appendAddresses])
 
     const handleAddNewPhone = useCallback(() => {
-        phonesAppend({
+        appendPhones({
             number: '',
             model: 'cell',
         })
-    }, [phonesAppend])
+    }, [appendPhones])
 
     const handleBlurZip = useCallback(
         async (index: number, zip: string) => {
@@ -263,11 +272,8 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
             onClose={handleCloseDrawer}
             title={drawerTitle}
         >
-            <form
-                className='flex h-full flex-col divide-y divide-gray-200 bg-white border-t-2'
-                onSubmit={handleSubmit(handleFormSubmit)}
-            >
-                <div className='flex-1 flex flex-col overflow-y-auto px-4 space-y-6 py-4'>
+            <Form onSubmit={handleSubmit(handleFormSubmit)}>
+                <FormContent>
                     <div>
                         <InputGroup
                             error={errors.name?.message as string}
@@ -276,34 +282,29 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
                             register={register}
                         />
                     </div>
-                    <div className='flex flex-col space-y-3'>
-                        <span className='flex items-center'>
-                            <h3 className='text-xl font-semibold'>Endereços</h3>
+                    <FormBlockContent>
+                        <span>
+                            <h3>Endereços</h3>
                             <button
                                 type='button'
                                 onClick={handleAddNewAddress}
-                                className='ml-2 py-2 px-2 text-sm text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700'
                             >
                                 <FaPlus />
                             </button>
                         </span>
-                        {addressesFields.map((address, index) => (
-                            <div
-                                key={address.id}
-                                className='flex bg-gray-100 rounded p-3 space-x-1'
-                            >
-                                {addressesFields.length > 1 && (
-                                    <span className='mr-2'>
+                        {fieldsAddresses.map((address, index) => (
+                            <div key={address.id}>
+                                {fieldsAddresses.length > 1 && (
+                                    <span>
                                         <button
-                                            onClick={() => addressesRemove(index)}
+                                            onClick={() => removeAddresses(index)}
                                             type='button'
-                                            className='py-2 px-2 text-sm text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700'
                                         >
                                             <FaTrashAlt />
                                         </button>
                                     </span>
                                 )}
-                                <div className='flex-grow flex flex-col space-y-2'>
+                                <AddressFieldsContent>
                                     <div>
                                         <InputMaskGroup
                                             control={control}
@@ -314,7 +315,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
                                             onCustomBlur={(value: string) => handleBlurZip(index, value)}
                                         />
                                     </div>
-                                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                                    <FieldsGridContent>
                                         <div>
                                             <ControlledReactSelect
                                                 control={control}
@@ -370,39 +371,34 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
                                                 register={register}
                                             />
                                         </div>
-                                    </div>
-                                </div>
+                                    </FieldsGridContent>
+                                </AddressFieldsContent>
                             </div>
                         ))}
-                    </div>
-                    <div className='flex flex-col space-y-3'>
-                        <span className='flex items-center'>
-                            <h3 className='text-xl font-semibold'>Telefones</h3>
+                    </FormBlockContent>
+                    <FormBlockContent>
+                        <span>
+                            <h3>Telefones</h3>
                             <button
                                 type='button'
                                 onClick={handleAddNewPhone}
-                                className='ml-2 py-2 px-2 text-sm text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700'
                             >
                                 <FaPlus />
                             </button>
                         </span>
-                        {phonesFields.map((phone, index) => (
-                            <div
-                                key={phone.id}
-                                className='flex bg-gray-100 rounded p-3 space-x-1'
-                            >
-                                {phonesFields.length > 1 && (
-                                    <span className='mr-2'>
+                        {fieldsPhones.map((phone, index) => (
+                            <div key={phone.id}>
+                                {fieldsPhones.length > 1 && (
+                                    <span>
                                         <button
-                                            onClick={() => phonesRemove(index)}
+                                            onClick={() => removePhones(index)}
                                             type='button'
-                                            className='py-2 px-2 text-sm text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700'
                                         >
                                             <FaTrashAlt />
                                         </button>
                                     </span>
                                 )}
-                                <div className='flex-grow grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                                <FieldsGridContentFlexGrow>
                                     <div>
                                         <ControlledReactSelect
                                             control={control}
@@ -423,20 +419,17 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
                                             register={register}
                                         />
                                     </div>
-                                </div>
+                                </FieldsGridContentFlexGrow>
                             </div>
                         ))}
-                    </div>
-                </div>
-                <div className='flex flex-shrink-0 justify-end px-4 py-4 items-center'>
-                    <button
-                        className='w-full sm:w-auto flex items-center justify-center py-1 sm:py-2 px-2 sm:px-4 text-center text-lg text-white font-semibold bg-green-800 hover:bg-green-900 border-3 border-green-900 shadow rounded transition duration-200'
-                        type='submit'
-                    >
-                        <FaSave className='w-4 h-4 mr-2' /> Salvar
+                    </FormBlockContent>
+                </FormContent>
+                <ButtonContent>
+                    <button type='submit'>
+                        <FaSave /> Salvar
                     </button>
-                </div>
-            </form>
+                </ButtonContent>
+            </Form>
         </Drawer>
     )
 }
