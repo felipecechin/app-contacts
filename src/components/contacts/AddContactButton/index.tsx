@@ -11,7 +11,7 @@ export default function AddContactButton({ onClick }: IAddContactButtonProps) {
             type='button'
             onClick={onClick}
         >
-            <FaPlus className='mr-2' />
+            <FaPlus />
             Novo contato
         </Button>
     )
