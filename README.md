@@ -9,7 +9,6 @@ Para estilização, foram utilizadas as bibliotecas:
 - Tailwind CSS.
 
 Outras bibliotecas utilizadas:
-- Turnstone: para implementar a funcionalidade de `autocomplete` na busca de contatos;
 - React-hook-form: para gerenciar formulário;
 - Yup: para validação de formulário.
 
