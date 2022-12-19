@@ -63,6 +63,48 @@
         }
       ],
       "id": 2
+    },
+    {
+      "phones": [
+        {
+          "number": "49848945",
+          "model": "cell"
+        }
+      ],
+      "addresses": [
+        {
+          "district": "Bosque",
+          "street": "Rua Isaura Parente",
+          "state": "AC",
+          "number": 40,
+          "complement": "167",
+          "city": "Rio Branco",
+          "zip": "69900972"
+        }
+      ],
+      "name": "1 Felipe",
+      "id": 3
+    },
+    {
+      "phones": [
+        {
+          "number": "8498489484",
+          "model": "cell"
+        }
+      ],
+      "addresses": [
+        {
+          "district": "Centro",
+          "street": "Rua Riachuelo",
+          "state": "RS",
+          "number": 100,
+          "complement": "lado par",
+          "city": "Santa Maria",
+          "zip": "97050010"
+        }
+      ],
+      "name": "fernando",
+      "id": 4
     }
   ]
 }
