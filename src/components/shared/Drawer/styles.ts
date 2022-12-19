@@ -28,7 +28,7 @@ export const ContentTitle = styled.div`
     ${tw`w-full flex justify-between px-4 py-6 sm:px-6`}
 
     > button {
-        ${tw`rounded-md text-gray-300 hover:text-cyan-700 focus:outline-none focus:ring-2 focus:ring-white`}
+        ${tw`rounded-md text-gray-300 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-white`}
 
         > span {
             ${tw`sr-only`}
