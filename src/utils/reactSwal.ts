@@ -37,7 +37,7 @@ export const showSwalError = (message: string) => {
 
 export const showSwalWarning = (message: string) => {
     reactSwal.fire({
-        title: 'Alerta',
+        title: 'Alerta!',
         icon: 'warning',
         text: message,
         confirmButtonColor: sweetAlertOptions.confirmButtonColor,
