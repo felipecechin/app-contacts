@@ -11,6 +11,7 @@ import {
 } from './styles'
 import { FaPlus, FaSave, FaTrashAlt } from 'react-icons/fa'
 import { SubmitHandler, useFieldArray } from 'react-hook-form'
+import { showSwalError, showSwalWarning } from '@/utils/reactSwal'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Contact } from '@/types/contact'
@@ -20,9 +21,7 @@ import InputGroup from '@/components/shared/form/InputGroup'
 import InputMaskGroup from '@/components/shared/form/InputMaskGroup'
 import getOnlyNumbers from '@/utils/getOnlyNumbers'
 import lodashIsEmpty from 'lodash/isEmpty'
-import { reactSwal } from '@/utils/reactSwal'
 import states from '@/utils/states'
-import { sweetAlertOptions } from '@/utils/sweetAlertOptions'
 import { useContacts } from '@/contexts/useContacts'
 import { useFormWithSchema } from '@/hooks/useFormWithSchema'
 import { yupMessages } from '@/utils/yupMessages'
@@ -170,12 +169,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
 
     useEffect(() => {
         if (open && !lodashIsEmpty(errors)) {
-            reactSwal.fire({
-                icon: 'error',
-                title: 'Ops!',
-                text: 'Por favor, revise o formulário e corrija os erros',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalError('Por favor, revise o formulário e corrija os erros')
         }
     }, [errors, open])
 
@@ -241,12 +235,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
                     }
                     throw new Error('CEP não encontrado')
                 } catch (e) {
-                    reactSwal.fire({
-                        title: 'Oops!',
-                        icon: 'warning',
-                        text: 'Não foi possível recuperar as informações do CEP informado',
-                        confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                    })
+                    showSwalWarning('Não foi possível recuperar as informações do CEP informado')
                 }
             }
         },

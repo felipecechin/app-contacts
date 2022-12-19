@@ -1,5 +1,6 @@
 import { ContactsByLetterBlock, Container, MessageContactsNotFound, ResultsContent, SearchContent } from './styles'
 import { Fragment, useCallback, useEffect, useState } from 'react'
+import reactSwal, { sweetAlertOptions } from '@/utils/reactSwal'
 
 import AddContactButton from '@/components/contacts/AddContactButton'
 import { Contact } from '@/types/contact'
@@ -9,8 +10,6 @@ import DrawerStoreUpdateContact from '@/components/contacts/DrawerStoreUpdateCon
 import Header from '@/components/shared/template/Header'
 import MainContent from '@/components/shared/template/MainContent'
 import lodashOrderBy from 'lodash/orderBy'
-import { reactSwal } from '@/utils/reactSwal'
-import { sweetAlertOptions } from '@/utils/sweetAlertOptions'
 import { useContacts } from '@/contexts/useContacts'
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')

@@ -1,9 +1,8 @@
+import { closeSwal, showSwalError, showSwalLoading, showSwalSuccess } from '@/utils/reactSwal'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 import { Contact } from '@/types/contact'
 import fetcher from '@/utils/fetcher'
-import { reactSwal } from '@/utils/reactSwal'
-import { sweetAlertOptions } from '@/utils/sweetAlertOptions'
 
 type TContactsContextData = {
     contacts: Contact[]
@@ -25,12 +24,7 @@ export function ContactsProvider({ children }: IContactsProviderProps) {
 
     useEffect(() => {
         const getContacts = async (): Promise<void> => {
-            reactSwal.fire({
-                title: 'Por favor, aguarde...',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-            })
-            reactSwal.showLoading(null)
+            showSwalLoading()
             try {
                 const response = (await fetcher({
                     method: 'GET',
@@ -38,26 +32,16 @@ export function ContactsProvider({ children }: IContactsProviderProps) {
                 })) as TGetContactsResponse
 
                 setContacts(response)
-                reactSwal.close()
+                closeSwal()
             } catch (error) {
-                reactSwal.fire({
-                    title: 'Oops!',
-                    icon: 'error',
-                    text: 'Ocorreu algum erro ao buscar os contatos. Tente novamente mais tarde.',
-                    confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                })
+                showSwalError('Ocorreu algum erro ao buscar os contatos. Tente novamente mais tarde.')
             }
         }
         getContacts()
     }, [])
 
     const storeContact = useCallback(async (contactToStore: Omit<Contact, 'id'>): Promise<void> => {
-        reactSwal.fire({
-            title: 'Por favor, aguarde...',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-        })
-        reactSwal.showLoading(null)
+        showSwalLoading()
         try {
             const savedContact = (await fetcher({
                 method: 'POST',
@@ -67,29 +51,14 @@ export function ContactsProvider({ children }: IContactsProviderProps) {
             setContacts((oldState) => {
                 return [...oldState, savedContact]
             })
-            reactSwal.fire({
-                title: 'Sucesso!',
-                icon: 'success',
-                text: 'Contato salvo com sucesso!',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalSuccess('Contato salvo com sucesso!')
         } catch (error) {
-            reactSwal.fire({
-                title: 'Oops!',
-                icon: 'error',
-                text: 'Ocorreu algum erro ao salvar o contato. Tente novamente mais tarde.',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalError('Ocorreu algum erro ao salvar o contato. Tente novamente mais tarde.')
         }
     }, [])
 
     const updateContact = useCallback(async (contact: Contact): Promise<void> => {
-        reactSwal.fire({
-            title: 'Por favor, aguarde...',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-        })
-        reactSwal.showLoading(null)
+        showSwalLoading()
         try {
             const updatedContact = (await fetcher({
                 method: 'PUT',
@@ -104,29 +73,14 @@ export function ContactsProvider({ children }: IContactsProviderProps) {
                     return contact
                 })
             })
-            reactSwal.fire({
-                title: 'Sucesso!',
-                icon: 'success',
-                text: 'Contato atualizado com sucesso!',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalSuccess('Contato atualizado com sucesso!')
         } catch (error) {
-            reactSwal.fire({
-                title: 'Oops!',
-                icon: 'error',
-                text: 'Ocorreu algum erro ao atualizar o contato. Tente novamente mais tarde.',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalError('Ocorreu algum erro ao atualizar o contato. Tente novamente mais tarde.')
         }
     }, [])
 
     const deleteContact = useCallback(async (id: number): Promise<void> => {
-        reactSwal.fire({
-            title: 'Por favor, aguarde...',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-        })
-        reactSwal.showLoading(null)
+        showSwalLoading()
         try {
             await fetcher({
                 method: 'DELETE',
@@ -135,19 +89,9 @@ export function ContactsProvider({ children }: IContactsProviderProps) {
             setContacts((oldState) => {
                 return oldState.filter((contact) => contact.id !== id)
             })
-            reactSwal.fire({
-                title: 'Sucesso!',
-                icon: 'success',
-                text: 'Contato deletado com sucesso',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalSuccess('Contato deletado com sucesso!')
         } catch (error) {
-            reactSwal.fire({
-                title: 'Oops!',
-                icon: 'error',
-                text: 'Ocorreu algum erro ao deletar o contato. Tente novamente mais tarde.',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalError('Ocorreu algum erro ao deletar o contato. Tente novamente mais tarde.')
         }
     }, [])
 
