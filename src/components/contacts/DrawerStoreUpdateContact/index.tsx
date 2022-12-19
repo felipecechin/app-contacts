@@ -11,14 +11,13 @@ import {
 } from './styles'
 import { FaPlus, FaSave, FaTrashAlt } from 'react-icons/fa'
 import { SubmitHandler, useFieldArray } from 'react-hook-form'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Contact } from '@/types/contact'
 import ControlledReactSelect from '@/components/shared/form/ControlledReactSelect'
 import Drawer from '@/components/shared/Drawer'
 import InputGroup from '@/components/shared/form/InputGroup'
 import InputMaskGroup from '@/components/shared/form/InputMaskGroup'
-import cities from '@/utils/cities'
 import getOnlyNumbers from '@/utils/getOnlyNumbers'
 import lodashIsEmpty from 'lodash/isEmpty'
 import { reactSwal } from '@/utils/reactSwal'
@@ -43,8 +42,15 @@ interface IViaCepResponse {
     complemento: string
 }
 
+interface City {
+    label: string
+    value: string
+    estadoid: string
+}
+
 export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdate }: IDrawerStoreContactProps) {
     const { storeContact, updateContact } = useContacts()
+    const [allCities, setAllCities] = useState<City[]>([])
 
     const addressSchema = useMemo(() => {
         return yup.object({
@@ -126,7 +132,12 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
     } = useFormWithSchema(formContactSchema)
 
     useEffect(() => {
+        async function getAllCities() {
+            const cities = await import('@/utils/cities')
+            setAllCities(cities.default)
+        }
         if (open) {
+            getAllCities()
             if (!lodashIsEmpty(contactToUpdate)) {
                 reset({
                     name: contactToUpdate.name,
@@ -242,9 +253,16 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
         [clearErrors, setValue, changeStateAndCities]
     )
 
-    const getCitiesByState = useCallback((state: string) => {
-        return cities.filter((c) => c.estadoid === state)
-    }, [])
+    const getCitiesByState = useCallback(
+        (state: string) => {
+            if (!lodashIsEmpty(allCities)) {
+                return allCities.filter((c) => c.estadoid === state)
+            } else {
+                return []
+            }
+        },
+        [allCities]
+    )
 
     const onChangeState = useCallback(
         (index: number, value: string) => {

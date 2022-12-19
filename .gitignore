@@ -25,3 +25,5 @@ dist-ssr
 
 yarn.lock
 .vscode
+
+.env
