@@ -3,120 +3,66 @@
     {
       "phones": [
         {
-          "number": "98498494",
+          "number": "559999999",
           "model": "cell"
+        },
+        {
+          "number": "5584848452",
+          "model": "home"
         }
       ],
       "addresses": [
         {
-          "district": "Nossa Senhora das Dores",
-          "street": "Avenida Nossa Senhora das Dores",
+          "district": "Centro",
+          "street": "Rua Riachuelo",
           "state": "RS",
-          "number": 50,
+          "number": 100,
           "complement": "lado par",
           "city": "Santa Maria",
-          "zip": "97050530"
+          "zip": "97050010"
+        },
+        {
+          "district": "Centro",
+          "street": "Rua Benjamin Constant",
+          "state": "RS",
+          "number": 100,
+          "complement": "até 930 - lado par",
+          "city": "Santa Maria",
+          "zip": "97050020"
         }
       ],
-      "name": "felipe aa",
+      "name": "Felipe Cechin",
       "id": 1
     },
     {
-      "phones": [
-        {
-          "number": "49849841",
-          "model": "cell"
-        }
-      ],
+      "name": "Ciclano Beltrano",
       "addresses": [
         {
-          "district": "Nossa Senhora das Dores",
-          "street": "Avenida Nossa Senhora das Dores",
-          "state": "RS",
-          "number": 43,
-          "complement": "lado par",
-          "city": "Santa Maria",
-          "zip": "97050530"
-        }
-      ],
-      "name": "sarah",
-      "id": 2
-    },
-    {
-      "name": "feaa",
-      "addresses": [
-        {
-          "district": "Nossa Senhora das Dores",
-          "street": "Avenida Nossa Senhora das Dores",
-          "state": "RS",
+          "district": "Parque Industrial Tancredo Neves",
+          "street": "Rua Doutor José Jorge Cury",
+          "state": "SP",
           "number": 50,
           "complement": "",
-          "city": "Santa Maria",
-          "zip": "97050530"
-        }
-      ],
-      "phones": [
-        {
-          "number": "84984984",
-          "model": "cell"
-        }
-      ],
-      "id": 3
-    },
-    {
-      "name": "123aaa",
-      "addresses": [
-        {
-          "district": "Nossa Senhora das Dores",
-          "street": "Avenida Nossa Senhora das Dores",
-          "state": "RS",
-          "number": 34,
-          "complement": "lado par",
-          "city": "Santa Maria",
-          "zip": "97050530"
-        }
-      ],
-      "phones": [
-        {
-          "number": "42423244",
-          "model": "cell"
-        }
-      ],
-      "id": 4
-    },
-    {
-      "name": "áfeafae",
-      "addresses": [
-        {
-          "district": "Nossa Senhora das Dores",
-          "street": "Avenida Nossa Senhora das Dores",
-          "state": "RS",
-          "number": 30,
-          "complement": "lado par",
-          "city": "Santa Maria",
-          "zip": "97050530"
+          "city": "São José do Rio Preto",
+          "zip": "15076610"
         },
         {
-          "district": "Nossa Senhora das Dores",
-          "street": "Avenida Nossa Senhora das Dores",
+          "district": "Centro",
+          "street": "Rua Riachuelo",
           "state": "RS",
-          "number": 30,
+          "number": 60,
           "complement": "lado par",
           "city": "Santa Maria",
-          "zip": "97050530"
+          "zip": "97050010"
         }
       ],
       "phones": [
         {
-          "number": "49849842",
+          "number": "549848948",
           "model": "cell"
-        },
-        {
-          "model": "cell",
-          "number": "55758758"
         }
       ],
-      "id": 5
+      "id": 2
     }
   ]
 }
