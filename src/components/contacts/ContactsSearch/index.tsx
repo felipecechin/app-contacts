@@ -12,7 +12,7 @@ interface IContactsSearchProps {
 
 export default function ContactsSearch({ contacts, onSearchContacts }: IContactsSearchProps) {
     const [query, setQuery] = useState('')
-    const searchedContacts = useCallback(
+    const autoCompleteSearchedContacts = useCallback(
         (query: string) => {
             return contacts
                 .filter((contact) => {
@@ -26,9 +26,9 @@ export default function ContactsSearch({ contacts, onSearchContacts }: IContacts
     const listbox = useMemo(() => {
         return {
             displayField: 'name',
-            data: searchedContacts,
+            data: autoCompleteSearchedContacts,
         }
-    }, [searchedContacts])
+    }, [autoCompleteSearchedContacts])
 
     return (
         <span className='flex items-center'>
