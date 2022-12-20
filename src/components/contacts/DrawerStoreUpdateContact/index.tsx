@@ -128,6 +128,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
         clearErrors,
         getValues,
         reset,
+        setFocus,
     } = useFormWithSchema(formContactSchema)
 
     useEffect(() => {
@@ -209,7 +210,8 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
             complement: '',
             number: 0,
         })
-    }, [appendAddresses])
+        setFocus(`addresses.${fieldsAddresses.length - 1}.zip`)
+    }, [appendAddresses, setFocus, fieldsAddresses])
 
     const handleAddNewPhone = useCallback(() => {
         appendPhones({

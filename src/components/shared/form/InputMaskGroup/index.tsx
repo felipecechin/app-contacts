@@ -29,11 +29,12 @@ function InputMaskGroup<T extends FieldValues>({
                 control={control}
                 defaultValue={'' as PathValue<T, Path<T>>}
                 name={name}
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                     <StyledInputMask
                         mask={mask}
                         maskPlaceholder={null}
                         name={name}
+                        ref={ref}
                         onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
                             if (onCustomBlur) {
                                 onCustomBlur(e.target.value)
