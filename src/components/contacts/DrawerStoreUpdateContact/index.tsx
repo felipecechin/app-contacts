@@ -210,7 +210,7 @@ export default function DrawerStoreUpdateContact({ open, onClose, contactToUpdat
             complement: '',
             number: 0,
         })
-        setFocus(`addresses.${fieldsAddresses.length - 1}.zip`)
+        setFocus(`addresses.${fieldsAddresses.length}.zip`)
     }, [appendAddresses, setFocus, fieldsAddresses])
 
     const handleAddNewPhone = useCallback(() => {
