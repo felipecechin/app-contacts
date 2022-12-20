@@ -12,7 +12,7 @@ export const DivInputContent = styled.div`
     }
 
     > button {
-        ${tw`absolute inset-y-0 right-0 rounded-r w-8 inline-flex items-center justify-center text-white bg-green-700 hover:text-green-300 focus:outline-none focus:ring focus:ring-green-300`}
+        ${tw`absolute inset-y-0 right-0 rounded-r w-8 inline-flex items-center justify-center text-white bg-green-800 hover:text-green-300 focus:outline-none focus:ring focus:ring-green-300`}
     }
 `
 
