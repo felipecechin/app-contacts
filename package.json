@@ -10,7 +10,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint --fix",
         "beautify": "prettier --write .",
-        "server": "json-server --watch db.json"
+        "server": "json-server --watch db.json",
+        "test": "vitest"
     },
     "babelMacros": {
         "twin": {
@@ -33,6 +34,8 @@
         "yup": "^0.32.11"
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^13.4.0",
         "@types/lodash": "^4.14.191",
         "@types/react": "^18.0.26",
         "@types/react-dom": "^18.0.9",
@@ -48,12 +51,14 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-react": "^7.31.11",
         "eslint-plugin-react-hooks": "^4.6.0",
+        "jsdom": "^21.0.0",
         "postcss": "^8.4.20",
         "prettier": "^2.8.1",
         "tailwindcss": "^3.2.4",
         "twin.macro": "^3.1.0",
         "typescript": "^4.9.3",
         "vite": "^4.0.0",
-        "vite-tsconfig-paths": "^4.0.3"
+        "vite-tsconfig-paths": "^4.0.3",
+        "vitest": "^0.27.2"
     }
 }

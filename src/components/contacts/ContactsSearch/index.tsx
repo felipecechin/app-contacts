@@ -17,7 +17,7 @@ export default function ContactsSearch({ contacts, onSearchContacts }: IContacts
     const [showClearButton, setShowClearButton] = useState(false)
 
     useEffect(() => {
-        return () => clearTimeout(timeoutCloseAutoComplete.current as number)
+        return () => clearTimeout(timeoutCloseAutoComplete.current as NodeJS.Timeout)
     }, [])
 
     const handleAutoCompleteSearchContacts = useCallback(
