@@ -1,4 +1,4 @@
-import { Control, FieldValues, Path, UnPackAsyncDefaultValues, useController } from 'react-hook-form'
+import { Control, FieldValues, Path, useController } from 'react-hook-form'
 import Select, {
     CSSObjectWithLabel,
     ControlProps,
@@ -15,7 +15,7 @@ import { useMemo } from 'react'
 interface IControlledReactSelectProps<T extends FieldValues> {
     label: string
     error: string
-    name: Path<UnPackAsyncDefaultValues<T>>
+    name: Path<T>
     placeholder?: string
     control: Control<T>
     options: {

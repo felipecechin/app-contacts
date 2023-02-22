@@ -7,8 +7,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react-hooks/recommended",
-        "prettier"
+        "plugin:react-hooks/recommended"
     ],
     "overrides": [],
     "parser": "@typescript-eslint/parser",
@@ -16,8 +15,18 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["react", "@typescript-eslint"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "prettier"
+    ],
     "rules": {
+        "prettier/prettier": "error",
         "react/react-in-jsx-scope": "off",
         "sort-imports": 2,
         "semi": "off",
@@ -34,17 +43,27 @@
                 }
             }
         ],
-        "@typescript-eslint/semi": ["error", "never"],
-        "quotes": ["error", "single"],
+        "@typescript-eslint/semi": [
+            "error",
+            "never"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
         "@typescript-eslint/naming-convention": [
             "warn",
             {
                 "selector": "interface",
-                "format": ["PascalCase"]
+                "format": [
+                    "PascalCase"
+                ]
             },
             {
                 "selector": "typeAlias",
-                "format": ["PascalCase"]
+                "format": [
+                    "PascalCase"
+                ]
             }
         ]
     }

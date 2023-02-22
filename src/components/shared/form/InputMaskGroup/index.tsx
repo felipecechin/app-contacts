@@ -3,14 +3,13 @@ import { Label, StyledInputMask } from './styles'
 
 import MessageError from '@/components/shared/MessageError'
 import React from 'react'
-import { UnPackAsyncDefaultValues } from 'react-hook-form'
 
 interface IInputMaskGroupProps<T extends FieldValues> {
     label: string
     error: string
     control: Control<T>
     onCustomBlur?: (value: string) => void
-    name: Path<UnPackAsyncDefaultValues<T>>
+    name: Path<T>
     mask: string
 }
 

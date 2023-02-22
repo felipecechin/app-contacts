@@ -2,14 +2,13 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form'
 import { Input, Label } from './styles'
 
 import MessageError from '@/components/shared/MessageError'
-import { UnPackAsyncDefaultValues } from 'react-hook-form'
 
 interface IInputGroupProps<T extends FieldValues> {
     label: string
     error: string
     type?: string
     register: UseFormRegister<T>
-    name: Path<UnPackAsyncDefaultValues<T>>
+    name: Path<T>
     placeholder?: string
 }
 
